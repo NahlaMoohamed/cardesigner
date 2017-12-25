@@ -1,5 +1,72 @@
 var Count=0;
+var list = [];
+function update(jscolor) {
+    // 'jscolor' instance can be used as a string
+    document.getElementById('card').style.backgroundColor = '#' + jscolor
+}
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    /* if present, the header is where you move the DIV from:*/
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    /* otherwise, move the DIV from anywhere inside the DIV:*/
+    elmnt.onmousedown = dragMouseDown;
+  }
+  function dragMouseDown(e) {
+    e = e || window.event;
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+  function elementDrag(e) {
+    e = e || window.event;
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+function generateShape(Shape)
+{
+	Count++;
+	var container = document.getElementById("card");
+	var temp = document.createElement('div');
+	temp.id = 'mydiv'+Count;
+	list.push('mydiv'+Count);
+	temp.style.position = 'absolute';
+	temp.style.textAlign = 'center';
+	var mydivheader = document.createElement('div');
+	mydivheader.id = 'mydiv'+Count+'header';
+	mydivheader.style.padding = '10px';
+	mydivheader.style.cursor = 'move';
+	mydivheader.style.color = '#fff';
+	var shape =  document.createElement('div');
+	shape.className = Shape;
+	shape.title="Double click to delete!";
+	shape.id = Shape + Count;
+	mydivheader.appendChild(shape);
+	temp.appendChild(mydivheader);
+	container.appendChild(temp);
+	dragElement(temp);
+}
+
 $(document).ready(function(){
+	 $(this).dblclick(function(event) {
+	 	document.getElementById(event.target.id).style.display = 'none';
+    });
     $("select.filter_type").change(function(){
         var shape = $(".filter_type option:selected").val();
         if(shape === 'square')
@@ -76,104 +143,6 @@ $(document).ready(function(){
 		}
     });
 
-    var shapes = ['heart','pointer','burst-12','burst-8'];
-    /*
-    var container = document.getElementById("shapes");
-    for(var i=1; i<=shapes.length;i++)
-    {
-    	var temp = document.createElement('div');
-    	temp.id = 'mydiv'+i;
-    	temp.style.position = 'absolute';
-    	temp.style.textAlign = 'center';
-    	var mydivheader = document.createElement('div');
-    	mydivheader.id = 'mydiv' + i +'header';
-    	mydivheader.style.padding = '10px';
-    	mydivheader.style.cursor = 'move';
-    	mydivheader.style.color = '#fff';
-    	var shape =  document.createElement('div');
-    	shape.className = shapes[i-1];
-    	mydivheader.appendChild(shape);
-    	temp.appendChild(mydivheader);
-    	container.appendChild(temp);
-    	dragElement(temp);
-    }
-*/
-    $('#heartButton').click(function(){
-    	Count++;
-		var container = document.getElementById("card");
-		var temp = document.createElement('div');
-    	temp.id = 'mydiv'+Count;
-    	temp.style.position = 'absolute';
-    	temp.style.textAlign = 'center';
-    	var mydivheader = document.createElement('div');
-    	mydivheader.id = 'mydiv'+Count+'header';
-    	mydivheader.style.padding = '10px';
-    	mydivheader.style.cursor = 'move';
-    	mydivheader.style.color = '#fff';
-    	var shape =  document.createElement('div');
-    	shape.className = 'heart';
-    	mydivheader.appendChild(shape);
-    	temp.appendChild(mydivheader);
-    	container.appendChild(temp);
-    	dragElement(temp);
-    });
-    $('#burst8Button').click(function(){
-    	Count++;
-		var container = document.getElementById("card");
-		var temp = document.createElement('div');
-    	temp.id = 'mydiv'+Count;
-    	temp.style.position = 'absolute';
-    	temp.style.textAlign = 'center';
-    	var mydivheader = document.createElement('div');
-    	mydivheader.id = 'mydiv'+Count+'header';
-    	mydivheader.style.padding = '10px';
-    	mydivheader.style.cursor = 'move';
-    	mydivheader.style.color = '#fff';
-    	var shape =  document.createElement('div');
-    	shape.className = 'burst-8';
-    	mydivheader.appendChild(shape);
-    	temp.appendChild(mydivheader);
-    	container.appendChild(temp);
-    	dragElement(temp);
-    });
-    $('#burst12Button').click(function(){
-    	Count++;
-		var container = document.getElementById("card");
-		var temp = document.createElement('div');
-    	temp.id = 'mydiv'+Count;
-    	temp.style.position = 'absolute';
-    	temp.style.textAlign = 'center';
-    	var mydivheader = document.createElement('div');
-    	mydivheader.id = 'mydiv'+Count+'header';
-    	mydivheader.style.padding = '10px';
-    	mydivheader.style.cursor = 'move';
-    	mydivheader.style.color = '#fff';
-    	var shape =  document.createElement('div');
-    	shape.className = 'burst-12';
-    	mydivheader.appendChild(shape);
-    	temp.appendChild(mydivheader);
-    	container.appendChild(temp);
-    	dragElement(temp);
-    });
-    $('#pointerButton').click(function(){
-    	Count++;
-		var container = document.getElementById("card");
-		var temp = document.createElement('div');
-    	temp.id = 'mydiv'+Count;
-    	temp.style.position = 'absolute';
-    	temp.style.textAlign = 'center';
-    	var mydivheader = document.createElement('div');
-    	mydivheader.id = 'mydiv'+Count+'header';
-    	mydivheader.style.padding = '10px';
-    	mydivheader.style.cursor = 'move';
-    	mydivheader.style.color = '#fff';
-    	var shape =  document.createElement('div');
-    	shape.className = 'pointer';
-    	mydivheader.appendChild(shape);
-    	temp.appendChild(mydivheader);
-    	container.appendChild(temp);
-    	dragElement(temp);
-    });
     $('#textButton').click(function(){
     	Count++;
 		var container = document.getElementById("card");
@@ -188,10 +157,10 @@ $(document).ready(function(){
     	mydivheader.style.color = '#fff';
     	var shape =  document.createElement('textarea');
     	shape.style.backgroundColor = 'transparent';
+    	shape.title = "Double Click to delete!"
     	mydivheader.appendChild(shape);
     	temp.appendChild(mydivheader);
     	container.appendChild(temp);
     	dragElement(temp);
     });
-
 });

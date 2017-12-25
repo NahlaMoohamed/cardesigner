@@ -26,87 +26,37 @@
 
  	<div class="container" >
     <div class="row center-block text-center"> 
- 		<select class="filter_type">
+ 		<h3>Card Shape <select class="filter_type">
       <option value="Shape" selected="selected">Shape</option>
  			<option value="square">Square</option>
  			<option value="rSquare">Rounded square</option>
  			<option value="rectangle">Rectangle</option>
  			<option value="rRectangle">Rounded rectangle</option>
  		</select>
-    <input class="jscolor {onFineChange:'update(this)'}" value="FFFFF">
+
+    Card Color:<input class="jscolor {onFineChange:'update(this)'}" value="FFFFF"></h3>
   </div>
-  <div class="container" style="margin-top: 2%;">
+  <div class="container" style="margin-top: 2%">
       <div class="col-md-2">
-        <a id="heartButton" style="cursor: pointer;"><div class="heart" ></div></a>
+        <a id="heartButton" style="cursor: pointer;" onclick="generateShape('heart')"><div class="heart" ></div></a>
       </div>
         <div class="col-md-2">
-        <a id="burst8Button" style="cursor: pointer;"><div class="burst-8"></div></a>
+        <a id="burst8Button" style="cursor: pointer;" onclick="generateShape('burst-8')"><div class="burst-8"></div></a>
       </div>
       <div class="col-md-2">
-        <a id="burst12Button" style="cursor: pointer;"><div class="burst-12"></div></a>
+        <a id="burst12Button" style="cursor: pointer;" onclick="generateShape('burst-12')"><div class="burst-12"></div></a>
       </div>
       <div class="col-md-3">
-      <a id="pointerButton" style="cursor: pointer;"><div class="pointer"></div></a>
+      <a id="pointerButton" style="cursor: pointer;" onclick="generateShape('pointer')"><div class="pointer"></div></a>
     </div>
         <div class="col-md-2">
         <a id="textButton" style="cursor: pointer;">Text Box</a>
       </div>
     </div>
     <div class="container">
- 		<div id="card"></div>
-  </div>
-    <!--<div id="shapes"></div>-->
-    <script>
-    function update(jscolor) {
-        // 'jscolor' instance can be used as a string
-        document.getElementById('card').style.backgroundColor = '#' + jscolor
-    }
-    </script>  
-    <div id="draggableTextArea">
-      <div id="draggableTextArea2">
-    
-  </div>
+   		<div id="card"></div>
+    </div> 
+
 </div>
-<script>
-  dragElement(document.getElementById(("draggableTextArea")));
-function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    /* if present, the header is where you move the DIV from:*/
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-  } else {
-    /* otherwise, move the DIV from anywhere inside the DIV:*/
-    elmnt.onmousedown = dragMouseDown;
-  }
-
-  function dragMouseDown(e) {
-    e = e || window.event;
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-  }
-
-  function elementDrag(e) {
-    e = e || window.event;
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-  }
-
-  function closeDragElement() {
-    /* stop moving when mouse button is released:*/
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
-}
-</script>
 </body>
 </html>

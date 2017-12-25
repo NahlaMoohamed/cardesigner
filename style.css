@@ -6,6 +6,10 @@ h1{
 	font-weight: 1000 !important;
 	font-family: 'Tangerine',sans-serif !important;
 }
+h3{
+	font-weight: 1000 !important;
+	font-family: 'Tangerine',sans-serif !important;
+}
 a{
 	font-size:64px; 
 	font-weight: 1000 !important;
@@ -111,6 +115,7 @@ textarea{
          -o-transform-origin: 100% 100%;
             transform-origin :100% 100%;
 }
+
 /*Ribbon Pointer */
 .pointer {
     width: 200px;
