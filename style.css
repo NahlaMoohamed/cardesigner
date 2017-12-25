@@ -60,8 +60,7 @@ button, input{
 }
 textarea{
 	background-color: transparent;
-	font-weight: bold;
-	font-family: 'Tangerine';
+	font-weight: bold !important;
 }
 
 #draggableTextArea{

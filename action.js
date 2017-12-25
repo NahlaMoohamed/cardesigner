@@ -64,8 +64,26 @@ function generateShape(Shape)
 }
 
 $(document).ready(function(){
-	 $(this).dblclick(function(event) {
-	 	document.getElementById(event.target.id).style.display = 'none';
+	$(this).dblclick(function(event) {
+		if( event.target.id !== 'textButton'){
+			document.getElementById(event.target.id).style.display = 'none';
+		}
+    });
+            
+    $("select.font_type").change(function(){
+    	var font = $(".font_type option:selected").val();
+    	//var changefont = "'" +font+"'"+' !important';
+    	var elements = document.getElementsByTagName('textarea');
+    	for(var i = 0 ; elements.length; i++){
+    		elements[i].style.fontFamily=font;
+    	} 	
+    });
+    $('input[name="changefont"]').change(function(){
+    	var size = $("#font_size").val();
+    	var elements = document.getElementsByTagName('textarea');
+    	for(var i = 0 ; elements.length; i++){
+    		elements[i].style.fontSize=size+'px';
+    	} 	
     });
     $("select.filter_type").change(function(){
         var shape = $(".filter_type option:selected").val();
