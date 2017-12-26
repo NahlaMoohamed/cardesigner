@@ -71,6 +71,7 @@ button, input{
 textarea{
 	background-color: transparent;
 	font-weight: bold !important;
+	border:none;
 }
 
 #draggableTextArea{
