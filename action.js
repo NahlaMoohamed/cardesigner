@@ -45,7 +45,6 @@ function dragElement(elmnt) {
 }
 function generateShape(Shape)
 {
-	// /<i class="fa fa-heart fa-5x"></i> 
 	Count++;
 	var container = document.getElementById("card");
 	var temp = document.createElement('div');
@@ -189,18 +188,18 @@ div class="col-md-2">
 		{
 			if($('#card').hasClass('square'))
 			{
-				$('#card').removeClass('square').addClass('rRectangle').addClass('black');
+				$('#card').removeClass('square').addClass('rRectangle');
 			}
 			else if($("#card").hasClass('rSquare'))
 			{
-				$('#card').removeClass('rSquare').addClass('rRectangle').addClass('black');
+				$('#card').removeClass('rSquare').addClass('rRectangle');
 			}
 			else if($("#card").hasClass('rectangle'))
 			{
-				$('#card').removeClass('rectangle').addClass('rRectangle').addClass('black').addClass('black');
+				$('#card').removeClass('rectangle').addClass('rRectangle');
 			}
 			else{
-				$('#card').addClass('rRectangle').addClass('black');
+				$('#card').addClass('rRectangle');
 			}
 		}
     });
@@ -221,6 +220,8 @@ div class="col-md-2">
     	shape.style.backgroundColor = 'transparent';
     	shape.title = "Double Click to delete!"
     	shape.id = 'textarea' + Count;
+    	shape.resize = 'both';
+    	shape.overflow = 'auto';
     	mydivheader.appendChild(shape);
     	temp.appendChild(mydivheader);
     	container.appendChild(temp);
