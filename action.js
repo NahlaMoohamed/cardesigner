@@ -1,5 +1,5 @@
 var Count=0;
-var currentColor;
+var currentColor='first';
 //card color changing
 function update(jscolor) {
     document.getElementById('card').style.backgroundColor = '#' + jscolor;
@@ -93,7 +93,10 @@ window.addEventListener('click', function (evt) {
     	}
     	else if(evt.target.tagName !== 'textButton'){
     		var ele = document.getElementById(evt.target.id);
-    		document.getElementById(evt.target.id).style.color = String(currentColor);
+    		if(currentColor !== 'first')
+    		{
+    			document.getElementById(evt.target.id).style.color = String(currentColor);
+    		}
     	}
     }
     //Delete all the generated shapes when double clicked on them.
