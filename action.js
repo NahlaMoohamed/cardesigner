@@ -1,8 +1,12 @@
 var Count=0;
-var list = [];
+var currentColor;
+//card color changing
 function update(jscolor) {
-    // 'jscolor' instance can be used as a string
-    document.getElementById('card').style.backgroundColor = '#' + jscolor
+    document.getElementById('card').style.backgroundColor = '#' + jscolor;
+}
+//textarea color changing
+function update2(jscolor) {
+    currentColor ='#' + jscolor;
 }
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -41,11 +45,11 @@ function dragElement(elmnt) {
 }
 function generateShape(Shape)
 {
+	// /<i class="fa fa-heart fa-5x"></i> 
 	Count++;
 	var container = document.getElementById("card");
 	var temp = document.createElement('div');
 	temp.id = 'mydiv'+Count;
-	list.push('mydiv'+Count);
 	temp.style.position = 'absolute';
 	temp.style.textAlign = 'center';
 	var mydivheader = document.createElement('div');
@@ -53,8 +57,9 @@ function generateShape(Shape)
 	mydivheader.style.padding = '10px';
 	mydivheader.style.cursor = 'move';
 	mydivheader.style.color = '#fff';
-	var shape =  document.createElement('div');
-	shape.className = Shape;
+	var shape =  document.createElement('i');
+	var cls="fa fa-"+Shape+" fa-5x";
+	shape.className = cls;
 	shape.title="Double click to delete!";
 	shape.id = Shape + Count;
 	mydivheader.appendChild(shape);
@@ -63,21 +68,57 @@ function generateShape(Shape)
 	dragElement(temp);
 }
 
+function generateButtons(){
+	var container = document.getElementById("shapes");
+	var shapes = ['heart','diamond','heartbeat'];
+	for(var x=0; x<shapes.length; x++){
+		var col = document.createElement('div');
+		col.className = 'col-md-2';
+		var link = document.createElement('a');
+		link.id = shapes[x]+'Button';
+		link.style.cursor = 'pointer';
+		//link.addEventListener("click", generateShape(shapes[x]));
+		link.onclick = generateShape(shapes[x]);
+		var shape =  document.createElement('i');
+		shape.className = "fa fa-"+shapes[x]+" fa-5x";
+		link.appendChild(shape);
+		col.appendChild(link);
+		container.appendChild(col);
+	}
+}
+window.addEventListener('click', function (evt) {
+    if (evt.detail === 1) {
+    	if(evt.target.tagName === 'TEXTAREA'){
+    		document.getElementById(evt.target.id).style.color = String(currentColor);
+    	}
+    	else if(evt.target.tagName !== 'textButton'){
+    		var ele = document.getElementById(evt.target.id);
+    		document.getElementById(evt.target.id).style.color = String(currentColor);
+    	}
+    }
+    //Delete all the generated shapes when double clicked on them.
+    if (evt.detail === 2) {
+    	if( event.target.id !== 'textButton'){
+    		document.getElementById(event.target.id).style.display = 'none';
+    	}
+    }
+});
+
 $(document).ready(function(){
-	$(this).dblclick(function(event) {
-		if( event.target.id !== 'textButton'){
-			document.getElementById(event.target.id).style.display = 'none';
-		}
-    });
-            
+/*
+div class="col-md-2">
+        <a id="heartButton" style="cursor: pointer;" onclick="generateShape('heart')"><i class="fa fa-heart fa-5x" aria-hidden="true"></i></a>
+      </div>
+*/
+    //Changes the font family of all the textareas
     $("select.font_type").change(function(){
     	var font = $(".font_type option:selected").val();
-    	//var changefont = "'" +font+"'"+' !important';
     	var elements = document.getElementsByTagName('textarea');
     	for(var i = 0 ; elements.length; i++){
     		elements[i].style.fontFamily=font;
     	} 	
     });
+    //Changes the font size of all the textareas
     $('input[name="changefont"]').change(function(){
     	var size = $("#font_size").val();
     	var elements = document.getElementsByTagName('textarea');
@@ -176,6 +217,7 @@ $(document).ready(function(){
     	var shape =  document.createElement('textarea');
     	shape.style.backgroundColor = 'transparent';
     	shape.title = "Double Click to delete!"
+    	shape.id = 'textarea' + Count;
     	mydivheader.appendChild(shape);
     	temp.appendChild(mydivheader);
     	container.appendChild(temp);
