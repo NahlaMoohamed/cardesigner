@@ -43,6 +43,16 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
+function showShapes(){
+	var container = document.getElementById("shapes");
+	if(container.style.display === 'none'){
+		container.style.display = 'inline';
+	}
+	else{
+		container.style.display = 'none';
+	}
+
+}
 function generateShape(Shape)
 {
 	Count++;
