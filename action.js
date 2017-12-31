@@ -1,4 +1,20 @@
 var Count=0;
+/*
+function isTouchDevice(){
+    return true == ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
+}
+
+if(isTouchDevice()===true) 
+{
+    $("#instructions").empty();
+	
+    var newHeader = document.createElement('h1');
+    newHeader.text = 'Please Open from laptop brower';
+    document.getElementById('instructions').appendChild(newHeader);
+
+}
+*/
+
 var currentColor='first';
 //card color changing
 function update(jscolor) {
@@ -43,13 +59,16 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
+
 function showShapes(){
 	var container = document.getElementById("shapes");
 	if(container.style.display === 'none'){
 		container.style.display = 'inline';
+		$('#card').hide();
 	}
 	else{
 		container.style.display = 'none';
+		$('#card').show();
 	}
 
 }
@@ -117,11 +136,6 @@ window.addEventListener('click', function (evt) {
 });
 
 $(document).ready(function(){
-/*
-div class="col-md-2">
-        <a id="heartButton" style="cursor: pointer;" onclick="generateShape('heart')"><i class="fa fa-heart fa-5x" aria-hidden="true"></i></a>
-      </div>
-*/
     //Changes the font family of all the textareas
     $("select.font_type").change(function(){
     	var font = $(".font_type option:selected").val();
