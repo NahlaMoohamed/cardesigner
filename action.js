@@ -105,8 +105,9 @@ function generateButtons(){
 		var link = document.createElement('a');
 		link.id = shapes[x]+'Button';
 		link.style.cursor = 'pointer';
+		//$(shapes[x]+'Button').prop('click',generateShape(shapes[x]));
 		//link.addEventListener("click", generateShape(shapes[x]));
-		link.onclick = generateShape(shapes[x]);
+		//link.onclick = generateShape(shapes[x]);
 		var shape =  document.createElement('i');
 		shape.className = "fa fa-"+shapes[x]+" fa-5x";
 		link.appendChild(shape);
@@ -130,12 +131,31 @@ window.addEventListener('click', function (evt) {
     //Delete all the generated shapes when double clicked on them.
     if (evt.detail === 2) {
     	if( event.target.id !== 'textButton'){
-    		document.getElementById(event.target.id).style.display = 'none';
+    		if(event.target.id !== 'card')
+    		{
+    			document.getElementById(event.target.id).style.display = 'none';
+    		}
     	}
     }
 });
 
 $(document).ready(function(){
+	//Generate the fonts dropdown list
+    var fonts = {'Arial':'Arial',"Tangerine":'Tangerine',"Time New Roman":'Time New Roman',"Verdana":"Verdana"};
+    $.each(fonts, function(key, value) {
+	    $('.font_type').append($("<option/>", {
+	        value: key,
+	        text: value
+	    }));
+	});
+	//Generate the shapes dropdown list
+	var filters = {"square":"Square","rSquare":"Rounded square","rectangle":"Rectangle","rRectangle":"Rounded rectangle"};
+	$.each(filters, function(key, value) {
+	    $('.filter_type').append($("<option/>", {
+	        value: key,
+	        text: value
+	    }));
+	});
     //Changes the font family of all the textareas
     $("select.font_type").change(function(){
     	var font = $(".font_type option:selected").val();
